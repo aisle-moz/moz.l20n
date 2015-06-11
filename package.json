@@ -1,0 +1,21 @@
+{
+  "name": "moz.l20n",
+  "description": "L20n editing mode",
+  "version": "0.0.1",
+  "author": "Axel Hecht <axel@pike.org>",
+  "contributors": [
+    {
+      "name": "Axel Hecht",
+      "email": "axel@pike.org"
+    }
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aisle-moz/moz.l20n"
+  },
+  "plugins": {},
+  "categories": [
+    "misc"
+  ],
+  "licenses": ["APL 2.0"]
+}
