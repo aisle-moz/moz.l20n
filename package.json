@@ -13,9 +13,13 @@
     "type": "git",
     "url": "https://github.com/aisle-moz/moz.l20n"
   },
-  "plugins": {},
+  "plugins": {
+    "language": {}
+  },
   "categories": [
     "misc"
   ],
-  "licenses": ["APL 2.0"]
+  "licenses": [
+    "APL 2.0"
+  ]
 }
