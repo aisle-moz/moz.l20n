@@ -78,7 +78,7 @@ define(function() { return /******/ (function(modules) { // webpackBootstrap
 
 	exports.default = {
 	  parse: function (env, string) {
-	    var pos = arguments[2] === undefined ? false : arguments[2];
+	    var pos = arguments.length <= 2 || arguments[2] === undefined ? false : arguments[2];
 
 	    this._source = string;
 	    this._index = 0;
@@ -171,8 +171,8 @@ define(function() { return /******/ (function(modules) { // webpackBootstrap
 	  },
 
 	  getValue: function () {
-	    var ch = arguments[0] === undefined ? this._source[this._index] : arguments[0];
-	    var optional = arguments[1] === undefined ? false : arguments[1];
+	    var ch = arguments.length <= 0 || arguments[0] === undefined ? this._source[this._index] : arguments[0];
+	    var optional = arguments.length <= 1 || arguments[1] === undefined ? false : arguments[1];
 
 	    switch (ch) {
 	      case '\'':
@@ -520,16 +520,15 @@ define(function() { return /******/ (function(modules) { // webpackBootstrap
 	    var start = this._source.lastIndexOf('<', pos - 1);
 	    var lastClose = this._source.lastIndexOf('>', pos - 1);
 	    start = lastClose > start ? lastClose + 1 : start;
-	    var context = '\u001b[90m' + this._source.slice(start, pos) + '\u001b[0m';
-	    context += this._source.slice(pos, pos + 10);
+	    var context = this._source.slice(start, pos + 10);
 
 	    var msg = message + ' at pos ' + pos + ': `' + context + '`';
 
-	    var err = new _errors.L10nError(message);
+	    var err = new _errors.L10nError(msg);
+	    err._pos = { start: pos, end: undefined };
+	    err.offset = pos - start;
+	    err.description = message;
 	    err.context = context;
-	    if (this._config.pos) {
-	      err._pos = { start: this._index, end: undefined };
-	    }
 	    return err;
 	  },
 
@@ -568,7 +567,7 @@ define(function() { return /******/ (function(modules) { // webpackBootstrap
 	  value: true
 	});
 
-	var _get = function get(object, property, receiver) { var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
+	var _get = function get(object, property, receiver) { if (object === null) object = Function.prototype; var desc = Object.getOwnPropertyDescriptor(object, property); if (desc === undefined) { var parent = Object.getPrototypeOf(object); if (parent === null) { return undefined; } else { return get(parent, property, receiver); } } else if ('value' in desc) { return desc.value; } else { var getter = desc.get; if (getter === undefined) { return undefined; } return getter.call(receiver); } };
 
 	var _createClass = (function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ('value' in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; })();
 
@@ -687,9 +686,9 @@ define(function() { return /******/ (function(modules) { // webpackBootstrap
 
 	var Entity = (function (_Entry) {
 	  function Entity(id) {
-	    var value = arguments[1] === undefined ? null : arguments[1];
-	    var index = arguments[2] === undefined ? null : arguments[2];
-	    var attrs = arguments[3] === undefined ? [] : arguments[3];
+	    var value = arguments.length <= 1 || arguments[1] === undefined ? null : arguments[1];
+	    var index = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
+	    var attrs = arguments.length <= 3 || arguments[3] === undefined ? [] : arguments[3];
 
 	    _classCallCheck(this, Entity);
 
@@ -720,7 +719,7 @@ define(function() { return /******/ (function(modules) { // webpackBootstrap
 
 	var Attribute = (function (_Node7) {
 	  function Attribute(id, value) {
-	    var index = arguments[2] === undefined ? null : arguments[2];
+	    var index = arguments.length <= 2 || arguments[2] === undefined ? null : arguments[2];
 
 	    _classCallCheck(this, Attribute);
 
@@ -777,7 +776,7 @@ define(function() { return /******/ (function(modules) { // webpackBootstrap
 
 	var PropertyExpression = (function (_Expression) {
 	  function PropertyExpression(idref, exp) {
-	    var computed = arguments[2] === undefined ? false : arguments[2];
+	    var computed = arguments.length <= 2 || arguments[2] === undefined ? false : arguments[2];
 
 	    _classCallCheck(this, PropertyExpression);
 
@@ -835,7 +834,8 @@ define(function() { return /******/ (function(modules) { // webpackBootstrap
 	  Expression: Expression,
 	  PropertyExpression: PropertyExpression,
 	  CallExpression: CallExpression,
-	  JunkEntry: JunkEntry };
+	  JunkEntry: JunkEntry
+	};
 	module.exports = exports.default;
 
 /***/ },

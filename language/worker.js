@@ -41,7 +41,7 @@ l20n.parse = function(value, callback) {
         var spos = that.doc.indexToPosition(e._pos.start);
         var epos = that.doc.indexToPosition(e._pos.start + 1);
         var node = tree.cons("Error", [
-            tree.string(e.message + ' in column ' + (spos.column + 1))
+            tree.string(e.description + ' in column ' + (spos.column + 1))
         ]);
         node.setAnnotation('pos', {
             sc: spos.column,
