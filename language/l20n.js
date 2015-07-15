@@ -550,7 +550,7 @@ define(function() { return /******/ (function(modules) { // webpackBootstrap
 
 	    var junk = new _ast2.default.JunkEntry(this._source.slice(this._curEntryStart, nextEntry));
 	    if (this._config.pos) {
-	      junk._pos = { start: pos, end: nextEntry };
+	      junk._pos = { start: this._curEntryStart, end: nextEntry };
 	    }
 	    return junk;
 	  }
